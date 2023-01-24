@@ -3,7 +3,7 @@ let brown001, brown002, slider;//this sets several variables in shorthand rather
 function setup() {
     createCanvas(windowWidth, windowHeight);
     angleMode(DEGREES);
-    noLoop();
+    noLoop(); //prevents the draw function from being called endlessly
     strokeJoin(ROUND);
     brown001 = color('#9C7F65');
     brown002 = color('#4F4023');
@@ -22,34 +22,32 @@ function draw() {
 }
 
 function branch(l) { //length of branch to draw
-    let maxAngle = slider.value();
-    strokeWeight(map(l, 20, 200, 1, 10)); //this sets varible weights of the stroke
+    let maxAngle = slider.value();//this changes the vaue of the maxangle ot that of the selective slider
+    strokeWeight(map(l, 20, 200, 1, 50)); //this sets varible weights of the stroke through the use of 'map'
     stroke(lerpColor(brown001, brown002, random(1)));
-    line(0, 0, 0, -l);//this would normally be top left, but the tranlsate above has moved this point, this is the only drawing instruction
+    line(0, 0, 0, -l);//this would normally be top left, but the translate above has moved this point, this is the only drawing instruction
     translate(0, -l);
     if (l > 20) {
         if (l < 50) {
             //adds basic leaves once the length is less than 50, constrained random colour
-            let r = 200 + random(-20,20); //180 through to 220
+            let r = 200 + random(-20, 20); //180 through to 220
             let g = 255 - random(80);
-            let b = 40 + random (-20, 20);
+            let b = 40 + random(-20, 20);
             fill(r, g, b, random(50, 100));
             let size = 15 + random(15);
             noStroke();
             // triangle(-size*0.5, 0, size *0.5, 0, 0, -size*0.9)
             beginShape();//this is to make a complex custom shape
-            let rad = random(10,30);
-            for(let i = 45; i < 135; i++){//this will set a series of i values between 45 and 135
+            let rad = random(10, 30);
+            for (let i = 45; i < 135; i++) {//this will set a series of i values between 45 and 135
                 let x = rad * cos(i);
                 let y = rad * sin(i);
-                vertex(x, y);//this draws the point
-
+                vertex(x, y);//this draws the points
             }
-            for (let i = 135; i > 45; i--){
+            for (let i = 135; i > 45; i--) {
                 let x = rad * cos(i);
-                let y = rad * sin(-i);//making this minus essentially mirrors the above
+                let y = rad * sin(-i);//making this in negative essentially mirrors the above
                 vertex(x, y);
-
             }
             endShape(CLOSE);//this closes the shape
         } else {
