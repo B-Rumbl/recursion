@@ -1,11 +1,11 @@
 let blue001, blue002, slider, speedSlide;//this sets several variables in shorthand rather than have 'let' for each one
-let fr;
-// let fr = 2;
+// let fr;
 let red1, red2;
+
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
-    angleMode(DEGREES);
+    angleMode(DEGREES);//this makes it much easier to understand rotations rather than the use of radians
     // noLoop(); //prevents the draw function from being called endlessly
     strokeJoin(ROUND);
     blue001 = color('#D2F6F3');
@@ -13,12 +13,12 @@ function setup() {
     red1 = color('#FF0000');
     red2 = color('#992702')
     //angle amount slider
-    slider = createSlider(21, 144, 21); // this creates the slider values and the default value as index 3
+    slider = createSlider(5, 150, 77); // this creates the slider values and the default value as index 3
     slider.position(10, windowHeight - 40); //this sets the position of the slider in the window
     slider.style("width", "200px"); //this styles the slider
     slider.input(draw);
     //framerate slider
-    speedSlide = createSlider(2, 30, 2);
+    speedSlide = createSlider(5, 60, 33);
     speedSlide.position(10, windowHeight - 60);
     speedSlide.style('width', '200px');
     speedSlide.input(frameRate);
@@ -41,41 +41,47 @@ function setup() {
     BotPosSlide = createSlider(0, windowWidth, windowWidth*0.5);
     BotPosSlide.position(windowWidth - 300, windowHeight - 40);
     BotPosSlide.style('width', '200px');
-    BotPosSlide.input(translate)
+    BotPosSlide.input(translate);
+    //length of branches
+    lengthSlider = createSlider(15, 45, 30);
+    lengthSlider.position(10, windowHeight - 80);
+    lengthSlider.style('width', '200px');
+    lengthSlider.input(branch);
+
 }
 
-function draw() {
+function draw() {//this is what will be animated on the screen when it begins to render
     frameRate(speedSlide.value());
     background(0);
     //Top Lightning
     translate(topPosSlide.value(), 0);//this sets the origin point to middle of the screen
-    branch(50);//this determines the length of the branch
-    resetMatrix();
+    branch(lengthSlider.value());//this determines the length of the branch according to the function created below
+    resetMatrix();//returns the state of the graphics to its original form (rotations and translations)
     //bottom Lightning
     translate(BotPosSlide.value(), height);
     rotate(180)
-    branch(50);
+    branch(lengthSlider.value());
     resetMatrix();
     //right lightning
     translate(width, rightPosSlide.value());
     rotate(90);
-    branch2(50);
+    branch2(lengthSlider.value());
     resetMatrix();
     //left Lightning
     translate(0, leftPosSlide.value());
     rotate(-90)
-    branch2(50);
+    branch2(lengthSlider.value());
     resetMatrix();
 }
 
 function branch(l) { //length of branch to draw
-    let maxAngle = slider.value();//this changes the vaue of the maxangle ot that of the selective slider
-    strokeWeight(map(l, 20, 200, 1, 15)); //this sets varible weights of the stroke through the use of 'map'
-    stroke(lerpColor(blue001, blue002, random(1)));
+    let maxAngle = slider.value();//this changes the value of the maxangle to that of the selective slider
+    strokeWeight(map(l, 20, 200, 1, 15)); //this sets variable weights of the stroke through the use of 'map'
+    stroke(lerpColor(blue001, blue002, random(1)));//lerpcolor blends two colours to a third in between them
     line(0, 0, 0, l);//this would normally be top left, but the translate above has moved this point, this is the only drawing instruction
-    translate(0, l);
+    translate(0, l);//this ensures that the transformation goes to the end of the line, rather than 
 
-    if (l > 20) {
+    if (l > 15) {
         //branch 1
         push();//saves the current state and drawing context
         rotate(random(-maxAngle, maxAngle) * 0.33);
@@ -86,6 +92,7 @@ function branch(l) { //length of branch to draw
         rotate(random(-maxAngle, maxAngle) * 0.55);
         branch(l * 0.6);
         pop();
+
     }
 
 }
