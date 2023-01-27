@@ -24,22 +24,22 @@ function setup() {
     speedSlide.input(frameRate);
     //left lightning position slider
     leftPosSlide = createSlider(0, windowHeight, windowHeight*0.5);
-    leftPosSlide.position(windowWidth -300, windowHeight - 80);
+    leftPosSlide.position(windowWidth -210, windowHeight - 80);
     leftPosSlide.style('width', '200px');
     leftPosSlide.input(translate);
     //right lightning position slider
     rightPosSlide = createSlider(0, windowHeight, windowHeight*0.5);
-    rightPosSlide.position(windowWidth - 300, windowHeight - 60);
+    rightPosSlide.position(windowWidth - 210, windowHeight - 60);
     rightPosSlide.style('width', '200px');
     rightPosSlide.input(translate)
     //top lightning position slider
     topPosSlide = createSlider(0, windowWidth, windowWidth*0.5);
-    topPosSlide.position(windowWidth - 300, windowHeight - 100);
+    topPosSlide.position(windowWidth - 210, windowHeight - 100);
     topPosSlide.style('width', '200px');
     topPosSlide.input(translate)
     //bottom lightning position slider
     BotPosSlide = createSlider(0, windowWidth, windowWidth*0.5);
-    BotPosSlide.position(windowWidth - 300, windowHeight - 40);
+    BotPosSlide.position(windowWidth - 210, windowHeight - 40);
     BotPosSlide.style('width', '200px');
     BotPosSlide.input(translate);
     //length of branches
